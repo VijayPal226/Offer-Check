@@ -37,6 +37,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+
+    # OfferCheck Apps 
+    'accounts',
+    'companies',
+    'internships',
+    'training',
+    'verification',
 ]
 
 MIDDLEWARE = [
