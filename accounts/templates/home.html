@@ -1,0 +1,838 @@
+{% extends "base.html" %}
+
+{% block title %}OfferCheck — Research Before You Apply{% endblock %}
+
+{% block content %}
+
+<!-- =====================================================
+     HERO SECTION
+===================================================== -->
+<section class="position-relative overflow-hidden py-5">
+
+    <div class="container py-lg-5">
+
+        <div class="row align-items-center g-5">
+
+            <!-- LEFT -->
+            <div class="col-lg-7">
+
+                <div class="d-inline-flex align-items-center gap-2
+                            bg-primary-subtle text-primary
+                            rounded-pill px-3 py-2 mb-4">
+
+                    <span class="small fw-semibold">
+                        ✦ SMART OPPORTUNITY RESEARCH
+                    </span>
+
+                </div>
+
+
+                <h1 class="display-3 fw-bold lh-sm mb-4">
+
+                    Know the opportunity
+                    <span class="text-primary">
+                        before you apply.
+                    </span>
+
+                </h1>
+
+
+                <p class="lead text-secondary mb-4"
+                   style="max-width: 650px;">
+
+                    Explore companies, internships and training programs
+                    in one place. Research the available information,
+                    understand the details and make your own decision.
+
+                </p>
+
+
+                <!-- SEARCH -->
+                <form class="mb-4">
+
+                    <div class="input-group input-group-lg
+                                bg-white rounded-4 shadow-sm p-1">
+
+                        <span class="input-group-text bg-transparent border-0 ps-3">
+                            🔍
+                        </span>
+
+                        <input
+                            type="search"
+                            class="form-control border-0 shadow-none"
+                            placeholder="Search companies, internships or training..."
+                        >
+
+                        <button
+                            type="submit"
+                            class="btn btn-primary rounded-3 px-4 fw-semibold">
+
+                            Search
+
+                        </button>
+
+                    </div>
+
+                </form>
+
+
+                <!-- BUTTONS -->
+                <div class="d-flex flex-wrap gap-3">
+
+                    <a href="#explore"
+                       class="btn btn-primary btn-lg rounded-pill px-4 fw-semibold">
+
+                        Explore Opportunities
+                        →
+                    </a>
+
+                    <a href="{% url 'register' %}"
+                       class="btn btn-outline-dark btn-lg rounded-pill px-4">
+
+                        Create Free Account
+
+                    </a>
+
+                </div>
+
+
+                <!-- SMALL TRUST TEXT -->
+                <div class="d-flex flex-wrap gap-4 mt-4 text-secondary small">
+
+                    <span>✓ Organized information</span>
+                    <span>✓ Research focused</span>
+                    <span>✓ User driven decisions</span>
+
+                </div>
+
+            </div>
+
+
+            <!-- RIGHT -->
+            <div class="col-lg-5">
+
+                <div class="position-relative">
+
+                    <!-- Main Card -->
+                    <div class="bg-dark text-white rounded-4 shadow-lg p-4 p-lg-5">
+
+                        <div class="d-flex justify-content-between
+                                    align-items-center mb-4">
+
+                            <div>
+
+                                <small class="text-white-50">
+                                    OPPORTUNITY RESEARCH
+                                </small>
+
+                                <h4 class="fw-bold mb-0 mt-1">
+                                    Research Dashboard
+                                </h4>
+
+                            </div>
+
+                            <div class="bg-primary rounded-3
+                                        p-2 px-3 fs-5">
+
+                                ✓
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Company -->
+                        <div class="bg-white bg-opacity-10
+                                    rounded-3 p-3 mb-3">
+
+                            <div class="d-flex align-items-center gap-3">
+
+                                <div class="bg-primary rounded-3
+                                            d-flex align-items-center
+                                            justify-content-center"
+                                     style="width:45px;height:45px;">
+
+                                    🏢
+
+                                </div>
+
+                                <div>
+
+                                    <small class="text-white-50">
+                                        COMPANY
+                                    </small>
+
+                                    <div class="fw-semibold">
+                                        Company Information
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Internship -->
+                        <div class="bg-white bg-opacity-10
+                                    rounded-3 p-3 mb-3">
+
+                            <div class="d-flex align-items-center gap-3">
+
+                                <div class="bg-primary rounded-3
+                                            d-flex align-items-center
+                                            justify-content-center"
+                                     style="width:45px;height:45px;">
+
+                                    💼
+
+                                </div>
+
+                                <div>
+
+                                    <small class="text-white-50">
+                                        OPPORTUNITY
+                                    </small>
+
+                                    <div class="fw-semibold">
+                                        Internship Details
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Evidence -->
+                        <div class="bg-white bg-opacity-10
+                                    rounded-3 p-3">
+
+                            <div class="d-flex align-items-center gap-3">
+
+                                <div class="bg-primary rounded-3
+                                            d-flex align-items-center
+                                            justify-content-center"
+                                     style="width:45px;height:45px;">
+
+                                    📋
+
+                                </div>
+
+                                <div>
+
+                                    <small class="text-white-50">
+                                        INFORMATION
+                                    </small>
+
+                                    <div class="fw-semibold">
+                                        Evidence & Verification
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Floating Card -->
+                    <div class="position-absolute bg-white
+                                shadow rounded-4 p-3"
+                         style="bottom:-25px;left:-25px;">
+
+                        <div class="d-flex align-items-center gap-3">
+
+                            <div class="bg-success-subtle
+                                        text-success rounded-circle
+                                        p-2">
+
+                                ✓
+
+                            </div>
+
+                            <div>
+
+                                <small class="text-secondary d-block">
+                                    Research Status
+                                </small>
+
+                                <strong>
+                                    Information Found
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     STATS
+===================================================== -->
+<section class="py-4">
+
+    <div class="container">
+
+        <div class="bg-light rounded-4 p-4">
+
+            <div class="row text-center g-4">
+
+                <div class="col-6 col-lg-3">
+
+                    <h2 class="fw-bold mb-1">
+                        100+
+                    </h2>
+
+                    <p class="text-secondary mb-0 small">
+                        Companies
+                    </p>
+
+                </div>
+
+
+                <div class="col-6 col-lg-3">
+
+                    <h2 class="fw-bold mb-1">
+                        250+
+                    </h2>
+
+                    <p class="text-secondary mb-0 small">
+                        Opportunities
+                    </p>
+
+                </div>
+
+
+                <div class="col-6 col-lg-3">
+
+                    <h2 class="fw-bold mb-1">
+                        50+
+                    </h2>
+
+                    <p class="text-secondary mb-0 small">
+                        Training Programs
+                    </p>
+
+                </div>
+
+
+                <div class="col-6 col-lg-3">
+
+                    <h2 class="fw-bold mb-1">
+                        1
+                    </h2>
+
+                    <p class="text-secondary mb-0 small">
+                        Research Platform
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     EXPLORE CATEGORIES
+===================================================== -->
+<section id="explore" class="py-5">
+
+    <div class="container py-lg-5">
+
+        <div class="text-center mb-5">
+
+            <span class="text-primary fw-semibold small">
+                EXPLORE
+            </span>
+
+            <h2 class="display-6 fw-bold mt-2">
+                Find what you're looking for.
+            </h2>
+
+            <p class="text-secondary mx-auto"
+               style="max-width:650px;">
+
+                Start with a category and explore information
+                relevant to your career journey.
+
+            </p>
+
+        </div>
+
+
+        <div class="row g-4">
+
+            <!-- Companies -->
+            <div class="col-lg-4">
+
+                <div class="card border-0 shadow-sm rounded-4
+                            h-100 overflow-hidden">
+
+                    <div class="card-body p-4 p-lg-5">
+
+                        <div class="d-flex justify-content-between
+                                    align-items-start mb-4">
+
+                            <div class="bg-primary-subtle
+                                        text-primary rounded-4 p-3 fs-3">
+
+                                🏢
+
+                            </div>
+
+                            <span class="text-secondary">
+                                →
+                            </span>
+
+                        </div>
+
+                        <h4 class="fw-bold">
+                            Companies
+                        </h4>
+
+                        <p class="text-secondary">
+                            Explore company information and understand
+                            what is available before considering an
+                            opportunity.
+                        </p>
+
+                        <a href="#"
+                           class="text-primary fw-semibold
+                                  text-decoration-none">
+
+                            Explore Companies →
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Internships -->
+            <div class="col-lg-4">
+
+                <div class="card border-0 shadow-sm rounded-4
+                            h-100 overflow-hidden">
+
+                    <div class="card-body p-4 p-lg-5">
+
+                        <div class="d-flex justify-content-between
+                                    align-items-start mb-4">
+
+                            <div class="bg-primary-subtle
+                                        text-primary rounded-4 p-3 fs-3">
+
+                                💼
+
+                            </div>
+
+                            <span class="text-secondary">
+                                →
+                            </span>
+
+                        </div>
+
+                        <h4 class="fw-bold">
+                            Internships
+                        </h4>
+
+                        <p class="text-secondary">
+                            Discover internship opportunities and
+                            research their available details.
+                        </p>
+
+                        <a href="#"
+                           class="text-primary fw-semibold
+                                  text-decoration-none">
+
+                            Browse Internships →
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Training -->
+            <div class="col-lg-4">
+
+                <div class="card border-0 shadow-sm rounded-4
+                            h-100 overflow-hidden">
+
+                    <div class="card-body p-4 p-lg-5">
+
+                        <div class="d-flex justify-content-between
+                                    align-items-start mb-4">
+
+                            <div class="bg-primary-subtle
+                                        text-primary rounded-4 p-3 fs-3">
+
+                                🎓
+
+                            </div>
+
+                            <span class="text-secondary">
+                                →
+                            </span>
+
+                        </div>
+
+                        <h4 class="fw-bold">
+                            Training Programs
+                        </h4>
+
+                        <p class="text-secondary">
+                            Explore training opportunities and
+                            collect useful information before choosing
+                            a program.
+                        </p>
+
+                        <a href="#"
+                           class="text-primary fw-semibold
+                                  text-decoration-none">
+
+                            Explore Training →
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     WHY OFFERCHECK
+===================================================== -->
+<section class="py-5 bg-light">
+
+    <div class="container py-lg-5">
+
+        <div class="row align-items-center g-5">
+
+            <div class="col-lg-5">
+
+                <span class="text-primary fw-semibold small">
+                    WHY OFFERCHECK
+                </span>
+
+                <h2 class="display-6 fw-bold mt-2 mb-4">
+                    One place for your opportunity research.
+                </h2>
+
+                <p class="text-secondary lead">
+                    Instead of jumping between multiple sources,
+                    use OfferCheck to organize the information you
+                    need while researching an opportunity.
+                </p>
+
+            </div>
+
+
+            <div class="col-lg-7">
+
+                <div class="row g-3">
+
+                    <div class="col-md-6">
+
+                        <div class="bg-white rounded-4 p-4 shadow-sm h-100">
+
+                            <div class="fs-3 mb-3">
+                                🔎
+                            </div>
+
+                            <h5 class="fw-bold">
+                                Easy Research
+                            </h5>
+
+                            <p class="text-secondary small mb-0">
+                                Find opportunity-related information
+                                without unnecessary complexity.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-6">
+
+                        <div class="bg-white rounded-4 p-4 shadow-sm h-100">
+
+                            <div class="fs-3 mb-3">
+                                📊
+                            </div>
+
+                            <h5 class="fw-bold">
+                                Organized Details
+                            </h5>
+
+                            <p class="text-secondary small mb-0">
+                                Keep company, internship and training
+                                information structured and easy to read.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-6">
+
+                        <div class="bg-white rounded-4 p-4 shadow-sm h-100">
+
+                            <div class="fs-3 mb-3">
+                                📑
+                            </div>
+
+                            <h5 class="fw-bold">
+                                Evidence Focused
+                            </h5>
+
+                            <p class="text-secondary small mb-0">
+                                Understand what information is documented
+                                and where additional checking may be useful.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-6">
+
+                        <div class="bg-white rounded-4 p-4 shadow-sm h-100">
+
+                            <div class="fs-3 mb-3">
+                                🧠
+                            </div>
+
+                            <h5 class="fw-bold">
+                                Your Decision
+                            </h5>
+
+                            <p class="text-secondary small mb-0">
+                                OfferCheck provides information so you can
+                                make your own informed decision.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     HOW IT WORKS
+===================================================== -->
+<section class="py-5">
+
+    <div class="container py-lg-5">
+
+        <div class="text-center mb-5">
+
+            <span class="text-primary fw-semibold small">
+                SIMPLE PROCESS
+            </span>
+
+            <h2 class="display-6 fw-bold mt-2">
+                Research in three steps.
+            </h2>
+
+        </div>
+
+
+        <div class="row g-4">
+
+            <div class="col-md-4">
+
+                <div class="text-center px-3">
+
+                    <div class="mx-auto bg-primary text-white
+                                rounded-circle d-flex
+                                align-items-center
+                                justify-content-center
+                                fw-bold fs-4 mb-4"
+                         style="width:65px;height:65px;">
+
+                        1
+
+                    </div>
+
+                    <h5 class="fw-bold">
+                        Search
+                    </h5>
+
+                    <p class="text-secondary">
+                        Search for a company, internship or training
+                        opportunity.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <div class="text-center px-3">
+
+                    <div class="mx-auto bg-primary text-white
+                                rounded-circle d-flex
+                                align-items-center
+                                justify-content-center
+                                fw-bold fs-4 mb-4"
+                         style="width:65px;height:65px;">
+
+                        2
+
+                    </div>
+
+                    <h5 class="fw-bold">
+                        Research
+                    </h5>
+
+                    <p class="text-secondary">
+                        Review the available details and information
+                        related to the opportunity.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <div class="text-center px-3">
+
+                    <div class="mx-auto bg-primary text-white
+                                rounded-circle d-flex
+                                align-items-center
+                                justify-content-center
+                                fw-bold fs-4 mb-4"
+                         style="width:65px;height:65px;">
+
+                        3
+
+                    </div>
+
+                    <h5 class="fw-bold">
+                        Decide
+                    </h5>
+
+                    <p class="text-secondary">
+                        Use your research and make the decision
+                        that works for you.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     CTA
+===================================================== -->
+<section class="py-5">
+
+    <div class="container py-4">
+
+        <div class="bg-dark text-white rounded-4
+                    p-5 text-center shadow-lg">
+
+            <span class="badge rounded-pill
+                         bg-white bg-opacity-10
+                         text-white px-3 py-2 mb-3">
+
+                START RESEARCHING
+
+            </span>
+
+            <h2 class="display-6 fw-bold mb-3">
+                Don't just apply.
+                Research first.
+            </h2>
+
+            <p class="text-white-50 mx-auto mb-4"
+               style="max-width:600px;">
+
+                Explore OfferCheck and organize your research
+                before taking the next step.
+
+            </p>
+
+            <div class="d-flex justify-content-center
+                        flex-wrap gap-3">
+
+                <a href="{% url 'register' %}"
+                   class="btn btn-primary btn-lg rounded-pill px-4 fw-semibold">
+
+                    Get Started →
+
+                </a>
+
+                <a href="{% url 'about' %}"
+                   class="btn btn-outline-light btn-lg rounded-pill px-4">
+
+                    Learn More
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

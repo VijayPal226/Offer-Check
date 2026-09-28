@@ -1,21 +1,855 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Basic{% endblock %}</title>
-    {% load static %}
+
+    <meta name="description"
+        content="OfferCheck - Explore companies, internships and training opportunities with useful documented information.">
+
+    <title>{% block title %}OfferCheck{% endblock %}</title>
+
+
+    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
-</head>
-<body>
-    
-    <nav>
-        <a href="{% url 'home' %}">Home</a>
-        <a href="{% url 'login' %}">Login</a>
-        <a href="{% url 'register' %}">Register</a>
-    </nav>
-    {% block content %}
+
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <!-- ================= CUSTOM CSS ================= -->
+
+    <style>
+
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+
+            --dark: #0f172a;
+            --dark-light: #1e293b;
+
+            --muted: #64748b;
+
+            --light: #f8fafc;
+
+            --border: #e2e8f0;
+
+            --white: #ffffff;
+
+            --success: #16a34a;
+        }
+
+
+        /* ================= GLOBAL ================= */
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+
+        body {
+
+            margin: 0;
+
+            font-family: "Inter", sans-serif;
+
+            background: var(--light);
+
+            color: var(--dark);
+
+            line-height: 1.6;
+        }
+
+
+        a {
+            text-decoration: none;
+        }
+
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+
+        /* ================= NAVBAR ================= */
+
+        .oc-navbar {
+
+            background: rgba(15, 23, 42, 0.97);
+
+            backdrop-filter: blur(12px);
+
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+
+            box-shadow: 0 4px 20px rgba(15, 23, 42, 0.08);
+        }
+
+
+        .oc-brand {
+
+            font-size: 1.45rem;
+
+            font-weight: 800;
+
+            letter-spacing: -0.6px;
+
+            color: #ffffff !important;
+
+            transition: 0.25s ease;
+        }
+
+
+        .oc-brand:hover {
+
+            color: #ffffff !important;
+
+            transform: translateY(-1px);
+        }
+
+
+        .oc-brand span {
+
+            color: #60a5fa;
+        }
+
+
+        .oc-nav-link {
+
+            color: #cbd5e1 !important;
+
+            font-weight: 500;
+
+            margin: 0 5px;
+
+            padding: 9px 12px !important;
+
+            border-radius: 8px;
+
+            transition: all 0.25s ease;
+        }
+
+
+        .oc-nav-link:hover {
+
+            color: #ffffff !important;
+
+            background: rgba(255, 255, 255, 0.07);
+        }
+
+
+        .oc-nav-link.active {
+
+            color: #ffffff !important;
+
+            background: rgba(37, 99, 235, 0.18);
+        }
+
+
+        /* ================= NAVBAR BUTTONS ================= */
+
+        .oc-login-btn {
+
+            color: #e2e8f0;
+
+            border: 1px solid #475569;
+
+            border-radius: 10px;
+
+            padding: 9px 18px;
+
+            font-weight: 600;
+
+            transition: all 0.25s ease;
+        }
+
+
+        .oc-login-btn:hover {
+
+            color: #ffffff;
+
+            border-color: #94a3b8;
+
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+
+        .oc-register-btn {
+
+            background: var(--primary);
+
+            color: white;
+
+            border-radius: 10px;
+
+            padding: 10px 18px;
+
+            font-weight: 600;
+
+            border: none;
+
+            transition: all 0.25s ease;
+        }
+
+
+        .oc-register-btn:hover {
+
+            background: var(--primary-dark);
+
+            color: white;
+
+            transform: translateY(-1px);
+
+            box-shadow: 0 6px 18px rgba(37, 99, 235, 0.3);
+        }
+
+
+        /* ================= MOBILE NAVBAR ================= */
+
+        .navbar-toggler {
+
+            padding: 7px 10px;
+
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+
+        .navbar-toggler:focus {
+
+            box-shadow: none;
+
+            outline: none;
+        }
+
+
+        .navbar-toggler-icon {
+
+            filter: brightness(0) invert(1);
+        }
+
+
+        /* ================= MAIN CONTENT ================= */
+
+        .page-wrapper {
+
+            min-height: calc(100vh - 180px);
+        }
+
+
+        /* ================= COMMON ================= */
+
+        .section-label {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            padding: 7px 12px;
+
+            border-radius: 50px;
+
+            background: #eff6ff;
+
+            color: var(--primary);
+
+            font-size: 0.82rem;
+
+            font-weight: 700;
+        }
+
+
+        .premium-card {
+
+            background: white;
+
+            border: 1px solid var(--border);
+
+            border-radius: 18px;
+
+            transition: all 0.3s ease;
+        }
+
+
+        .premium-card:hover {
+
+            transform: translateY(-5px);
+
+            box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+        }
+
+
+        .text-muted-custom {
+
+            color: var(--muted);
+        }
+
+
+        /* ================= FOOTER ================= */
+
+        .oc-footer {
+
+            background: var(--dark);
+
+            color: #cbd5e1;
+
+            margin-top: 80px;
+        }
+
+
+        .footer-brand {
+
+            color: white;
+
+            font-size: 1.35rem;
+
+            font-weight: 800;
+
+            letter-spacing: -0.4px;
+        }
+
+
+        .footer-brand span {
+
+            color: #60a5fa;
+        }
+
+
+        .footer-description {
+
+            color: #94a3b8;
+
+            max-width: 430px;
+
+            line-height: 1.8;
+        }
+
+
+        .footer-heading {
+
+            color: white;
+
+            font-size: 0.95rem;
+
+            font-weight: 700;
+
+            margin-bottom: 18px;
+        }
+
+
+        .footer-link {
+
+            color: #94a3b8;
+
+            display: block;
+
+            margin-bottom: 11px;
+
+            transition: all 0.2s ease;
+        }
+
+
+        .footer-link:hover {
+
+            color: white;
+
+            transform: translateX(2px);
+        }
+
+
+        .footer-bottom {
+
+            border-top: 1px solid #1e293b;
+
+            color: #64748b;
+        }
+
+
+        /* ================= FOOTER SOCIAL / BRAND AREA ================= */
+
+        .footer-brand-box {
+
+            padding-right: 20px;
+        }
+
+
+        /* ================= BUTTON COMMON ================= */
+
+        .btn {
+
+            transition: all 0.25s ease;
+        }
+
+
+        .btn-primary {
+
+            background-color: var(--primary);
+
+            border-color: var(--primary);
+        }
+
+
+        .btn-primary:hover {
+
+            background-color: var(--primary-dark);
+
+            border-color: var(--primary-dark);
+
+            transform: translateY(-1px);
+        }
+
+
+        /* ================= SELECTION ================= */
+
+        ::selection {
+
+            background: #dbeafe;
+
+            color: #1e3a8a;
+        }
+
+
+        /* ================= SCROLLBAR ================= */
+
+        ::-webkit-scrollbar {
+
+            width: 8px;
+        }
+
+
+        ::-webkit-scrollbar-track {
+
+            background: #f1f5f9;
+        }
+
+
+        ::-webkit-scrollbar-thumb {
+
+            background: #94a3b8;
+
+            border-radius: 20px;
+        }
+
+
+        ::-webkit-scrollbar-thumb:hover {
+
+            background: #64748b;
+        }
+
+
+        /* ================= MOBILE ================= */
+
+        @media (max-width: 991px) {
+
+            .oc-navbar .navbar-collapse {
+
+                padding-top: 15px;
+
+                padding-bottom: 10px;
+            }
+
+
+            .oc-nav-link {
+
+                margin: 2px 0;
+
+                padding: 10px 12px !important;
+            }
+
+
+            .oc-login-btn,
+            .oc-register-btn {
+
+                display: block;
+
+                width: 100%;
+
+                text-align: center;
+
+                margin-top: 8px;
+            }
+
+
+            .footer-brand-box {
+
+                padding-right: 0;
+            }
+        }
+
+
+        @media (max-width: 576px) {
+
+            .oc-brand {
+
+                font-size: 1.3rem;
+            }
+
+
+            .oc-footer {
+
+                margin-top: 50px;
+            }
+        }
+
+    </style>
+
+
+    {% block extra_css %}
     {% endblock %}
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         NAVBAR
+    ====================================================== -->
+
+    <nav class="navbar navbar-expand-lg oc-navbar sticky-top">
+
+        <div class="container py-2">
+
+
+            <!-- Brand -->
+
+            <a
+                class="navbar-brand oc-brand"
+                href="{% url 'home' %}"
+            >
+                Offer<span>Check</span>
+            </a>
+
+
+            <!-- Mobile Toggle -->
+
+            <button
+                class="navbar-toggler border-0"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#offerCheckNavbar"
+                aria-controls="offerCheckNavbar"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+            >
+
+                <span class="navbar-toggler-icon"></span>
+
+            </button>
+
+
+            <!-- Navbar Content -->
+
+            <div
+                class="collapse navbar-collapse"
+                id="offerCheckNavbar"
+            >
+
+
+                <!-- Navigation Links -->
+
+                <ul class="navbar-nav mx-auto align-items-lg-center">
+
+
+                    <!-- Home -->
+
+                    <li class="nav-item">
+
+                        <a
+                            class="nav-link oc-nav-link"
+                            href="{% url 'home' %}"
+                        >
+                            Home
+                        </a>
+
+                    </li>
+
+
+                    <!-- About -->
+
+                    <li class="nav-item">
+
+                        <a
+                            class="nav-link oc-nav-link"
+                            href="{% url 'about' %}"
+                        >
+                            About
+                        </a>
+
+                    </li>
+
+
+                    <!-- Companies -->
+
+                    <li class="nav-item">
+
+                        <a
+                            class="nav-link oc-nav-link"
+                            href="{% url 'companies' %}"
+                        >
+                            Companies
+                        </a>
+
+                    </li>
+
+
+                    <!-- Internships -->
+
+                    <li class="nav-item">
+
+                        <a
+                            class="nav-link oc-nav-link"
+                            href="{% url 'internships' %}"
+                        >
+                            Internships
+                        </a>
+
+                    </li>
+
+
+                    <!-- Training -->
+
+                    <li class="nav-item">
+
+                        <a
+                            class="nav-link oc-nav-link"
+                            href="{% url 'training' %}"
+                        >
+                            Training
+                        </a>
+
+                    </li>
+
+                </ul>
+
+
+                <!-- Account Buttons -->
+
+                <div class="d-flex flex-column flex-lg-row gap-2">
+
+
+                    <a
+                        href="{% url 'login' %}"
+                        class="oc-login-btn text-center"
+                    >
+                        Login
+                    </a>
+
+
+                    <a
+                        href="{% url 'register' %}"
+                        class="oc-register-btn text-center"
+                    >
+                        Get Started
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+
+    <!-- =====================================================
+         PAGE CONTENT
+    ====================================================== -->
+
+    <main class="page-wrapper">
+
+        {% block content %}
+        {% endblock %}
+
+    </main>
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer class="oc-footer">
+
+
+        <div class="container py-5">
+
+
+            <div class="row g-5">
+
+
+                <!-- Footer Brand -->
+
+                <div class="col-lg-5">
+
+                    <div class="footer-brand-box">
+
+                        <div class="footer-brand mb-3">
+                            Offer<span>Check</span>
+                        </div>
+
+
+                        <p class="footer-description mb-0">
+
+                            Explore companies, internships and training
+                            opportunities through organized and documented
+                            information.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Explore -->
+
+                <div class="col-6 col-lg-2">
+
+                    <div class="footer-heading">
+                        Explore
+                    </div>
+
+
+                    <a
+                        href="{% url 'companies' %}"
+                        class="footer-link"
+                    >
+                        Companies
+                    </a>
+
+
+                    <a
+                        href="{% url 'internships' %}"
+                        class="footer-link"
+                    >
+                        Internships
+                    </a>
+
+
+                    <a
+                        href="{% url 'training' %}"
+                        class="footer-link"
+                    >
+                        Training
+                    </a>
+
+                </div>
+
+
+                <!-- Company -->
+
+                <div class="col-6 col-lg-2">
+
+                    <div class="footer-heading">
+                        Company
+                    </div>
+
+
+                    <a
+                        href="{% url 'about' %}"
+                        class="footer-link"
+                    >
+                        About
+                    </a>
+
+
+                    <!-- Contact page abhi create nahi hua hai -->
+                    <a
+                        href="#"
+                        class="footer-link"
+                    >
+                        Contact
+                    </a>
+
+                </div>
+
+
+                <!-- Account -->
+
+                <div class="col-6 col-lg-3">
+
+                    <div class="footer-heading">
+                        Account
+                    </div>
+
+
+                    <a
+                        href="{% url 'login' %}"
+                        class="footer-link"
+                    >
+                        Login
+                    </a>
+
+
+                    <a
+                        href="{% url 'register' %}"
+                        class="footer-link"
+                    >
+                        Create Account
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- Footer Bottom -->
+
+            <div class="footer-bottom mt-5 pt-4">
+
+                <div
+                    class="d-flex flex-column flex-md-row
+                    justify-content-between gap-2"
+                >
+
+                    <small>
+                        © 2026 OfferCheck. All rights reserved.
+                    </small>
+
+
+                    <small>
+                        Built for smarter opportunity research.
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+    <!-- =====================================================
+         BOOTSTRAP JS
+    ====================================================== -->
+
     <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+
+
+    {% block extra_js %}
+    {% endblock %}
+
+
 </body>
+
 </html>

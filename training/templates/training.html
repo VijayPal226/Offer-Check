@@ -1,0 +1,699 @@
+{% extends 'base.html' %}
+
+{% block title %}Training Programs | OfferCheck{% endblock %}
+
+{% block content %}
+
+<style>
+    .training-hero {
+        padding: 80px 0 70px;
+        background: linear-gradient(135deg, #f8fbff 0%, #eef5ff 100%);
+    }
+
+    .hero-badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 8px 14px;
+        border-radius: 50px;
+        background: #e8f1ff;
+        color: #2563eb;
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 20px;
+    }
+
+    .training-hero h1 {
+        font-size: 48px;
+        font-weight: 800;
+        line-height: 1.15;
+        color: #111827;
+        margin-bottom: 20px;
+    }
+
+    .training-hero h1 span {
+        color: #2563eb;
+    }
+
+    .hero-text {
+        max-width: 650px;
+        color: #6b7280;
+        font-size: 18px;
+        line-height: 1.7;
+    }
+
+    .search-box {
+        background: #ffffff;
+        padding: 18px;
+        border-radius: 16px;
+        box-shadow: 0 12px 35px rgba(15, 23, 42, 0.08);
+        margin-top: 35px;
+    }
+
+    .search-box .form-control,
+    .search-box .form-select {
+        height: 52px;
+        border: 1px solid #e5e7eb;
+        border-radius: 10px;
+    }
+
+    .search-box .form-control:focus,
+    .search-box .form-select:focus {
+        border-color: #2563eb;
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    .search-btn {
+        height: 52px;
+        border-radius: 10px;
+        font-weight: 600;
+    }
+
+    .section-padding {
+        padding: 75px 0;
+    }
+
+    .section-title {
+        font-size: 34px;
+        font-weight: 800;
+        color: #111827;
+        margin-bottom: 10px;
+    }
+
+    .section-subtitle {
+        color: #6b7280;
+        max-width: 650px;
+        line-height: 1.7;
+    }
+
+    .training-card {
+        height: 100%;
+        background: #ffffff;
+        border: 1px solid #e5e7eb;
+        border-radius: 18px;
+        padding: 24px;
+        transition: all 0.25s ease;
+    }
+
+    .training-card:hover {
+        transform: translateY(-5px);
+        border-color: #cbd5e1;
+        box-shadow: 0 15px 35px rgba(15, 23, 42, 0.08);
+    }
+
+    .training-logo {
+        width: 52px;
+        height: 52px;
+        border-radius: 14px;
+        background: #eff6ff;
+        color: #2563eb;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        font-size: 18px;
+        margin-bottom: 20px;
+    }
+
+    .training-card h3 {
+        font-size: 21px;
+        font-weight: 700;
+        color: #111827;
+        margin-bottom: 7px;
+    }
+
+    .provider-name {
+        color: #6b7280;
+        font-size: 14px;
+        margin-bottom: 18px;
+    }
+
+    .info-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 20px;
+    }
+
+    .info-badge {
+        background: #f8fafc;
+        color: #475569;
+        border: 1px solid #e2e8f0;
+        padding: 6px 10px;
+        border-radius: 7px;
+        font-size: 13px;
+    }
+
+    .status-badge {
+        display: inline-block;
+        padding: 6px 10px;
+        border-radius: 7px;
+        font-size: 12px;
+        font-weight: 600;
+        margin-bottom: 18px;
+    }
+
+    .status-available {
+        background: #ecfdf5;
+        color: #047857;
+    }
+
+    .status-review {
+        background: #fff7ed;
+        color: #c2410c;
+    }
+
+    .status-check {
+        background: #fefce8;
+        color: #a16207;
+    }
+
+    .view-btn {
+        width: 100%;
+        border-radius: 9px;
+        padding: 10px;
+        font-weight: 600;
+    }
+
+    .feature-section {
+        background: #f8fafc;
+    }
+
+    .feature-card {
+        background: #ffffff;
+        border: 1px solid #e5e7eb;
+        border-radius: 16px;
+        padding: 28px;
+        height: 100%;
+    }
+
+    .feature-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        background: #eff6ff;
+        color: #2563eb;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        margin-bottom: 18px;
+    }
+
+    .feature-card h4 {
+        font-size: 19px;
+        font-weight: 700;
+        color: #111827;
+        margin-bottom: 10px;
+    }
+
+    .feature-card p {
+        color: #6b7280;
+        line-height: 1.7;
+        margin-bottom: 0;
+    }
+
+    .cta-section {
+        padding: 75px 0;
+    }
+
+    .cta-box {
+        background: #111827;
+        border-radius: 22px;
+        padding: 55px 40px;
+        color: #ffffff;
+    }
+
+    .cta-box h2 {
+        font-size: 34px;
+        font-weight: 800;
+        margin-bottom: 14px;
+    }
+
+    .cta-box p {
+        color: #cbd5e1;
+        max-width: 650px;
+        margin: 0 auto 25px;
+        line-height: 1.7;
+    }
+
+    @media (max-width: 768px) {
+        .training-hero {
+            padding: 55px 0;
+        }
+
+        .training-hero h1 {
+            font-size: 36px;
+        }
+
+        .section-title {
+            font-size: 29px;
+        }
+
+        .cta-box {
+            padding: 40px 25px;
+        }
+
+        .cta-box h2 {
+            font-size: 28px;
+        }
+    }
+</style>
+
+
+<!-- ================= HERO ================= -->
+
+<section class="training-hero">
+
+    <div class="container">
+
+        <div class="hero-badge">
+            Training Directory
+        </div>
+
+        <h1>
+            Learn skills with<br>
+            <span>better information.</span>
+        </h1>
+
+        <p class="hero-text">
+            Explore training programs, courses and learning opportunities
+            while reviewing the information available about each program.
+        </p>
+
+
+        <!-- Search -->
+
+        <div class="search-box">
+
+            <form>
+
+                <div class="row g-3">
+
+                    <div class="col-lg-5">
+
+                        <input
+                            type="text"
+                            class="form-control"
+                            placeholder="Search courses, skills or programs..."
+                        >
+
+                    </div>
+
+
+                    <div class="col-lg-3">
+
+                        <select class="form-select">
+
+                            <option selected>
+                                All Categories
+                            </option>
+
+                            <option>
+                                Python / Django
+                            </option>
+
+                            <option>
+                                Java
+                            </option>
+
+                            <option>
+                                Web Development
+                            </option>
+
+                            <option>
+                                Data Science
+                            </option>
+
+                            <option>
+                                Full Stack Development
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="col-lg-2">
+
+                        <select class="form-select">
+
+                            <option selected>
+                                Mode
+                            </option>
+
+                            <option>
+                                Online
+                            </option>
+
+                            <option>
+                                Offline
+                            </option>
+
+                            <option>
+                                Hybrid
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="col-lg-2">
+
+                        <button
+                            type="button"
+                            class="btn btn-primary w-100 search-btn"
+                        >
+                            Search
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= TRAINING DIRECTORY ================= -->
+
+<section class="section-padding">
+
+    <div class="container">
+
+        <div class="mb-5">
+
+            <h2 class="section-title">
+                Explore training programs
+            </h2>
+
+            <p class="section-subtitle">
+                Discover courses and training programs based on skills,
+                learning mode and available program information.
+            </p>
+
+        </div>
+
+
+        <div class="row g-4">
+
+
+            <!-- Training 1 -->
+
+            <div class="col-lg-4 col-md-6">
+
+                <div class="training-card">
+
+                    <div class="training-logo">
+                        PD
+                    </div>
+
+                    <span class="status-badge status-available">
+                        Information Available
+                    </span>
+
+                    <h3>
+                        Python & Django Training
+                    </h3>
+
+                    <p class="provider-name">
+                        Professional Development Institute
+                    </p>
+
+                    <div class="info-row">
+
+                        <span class="info-badge">
+                            Python
+                        </span>
+
+                        <span class="info-badge">
+                            Django
+                        </span>
+
+                        <span class="info-badge">
+                            Online
+                        </span>
+
+                    </div>
+
+                    <p class="text-muted small">
+                        Course information, learning topics and provider
+                        details available for review.
+                    </p>
+
+                    <a href="#" class="btn btn-outline-primary view-btn">
+                        View Training
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- Training 2 -->
+
+            <div class="col-lg-4 col-md-6">
+
+                <div class="training-card">
+
+                    <div class="training-logo">
+                        FS
+                    </div>
+
+                    <span class="status-badge status-review">
+                        More Verification
+                    </span>
+
+                    <h3>
+                        Full Stack Development
+                    </h3>
+
+                    <p class="provider-name">
+                        Software Learning Academy
+                    </p>
+
+                    <div class="info-row">
+
+                        <span class="info-badge">
+                            HTML
+                        </span>
+
+                        <span class="info-badge">
+                            JavaScript
+                        </span>
+
+                        <span class="info-badge">
+                            Hybrid
+                        </span>
+
+                    </div>
+
+                    <p class="text-muted small">
+                        Review available course and provider information
+                        before making a decision.
+                    </p>
+
+                    <a href="#" class="btn btn-outline-primary view-btn">
+                        View Training
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- Training 3 -->
+
+            <div class="col-lg-4 col-md-6">
+
+                <div class="training-card">
+
+                    <div class="training-logo">
+                        DS
+                    </div>
+
+                    <span class="status-badge status-check">
+                        Under Review
+                    </span>
+
+                    <h3>
+                        Data Science Program
+                    </h3>
+
+                    <p class="provider-name">
+                        Data Skills Academy
+                    </p>
+
+                    <div class="info-row">
+
+                        <span class="info-badge">
+                            Python
+                        </span>
+
+                        <span class="info-badge">
+                            SQL
+                        </span>
+
+                        <span class="info-badge">
+                            Online
+                        </span>
+
+                    </div>
+
+                    <p class="text-muted small">
+                        Program information is being organized and reviewed
+                        for this training listing.
+                    </p>
+
+                    <a href="#" class="btn btn-outline-primary view-btn">
+                        View Training
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= WHAT TO CHECK ================= -->
+
+<section class="feature-section section-padding">
+
+    <div class="container">
+
+        <div class="mb-5">
+
+            <h2 class="section-title">
+                What to check before joining
+            </h2>
+
+            <p class="section-subtitle">
+                Review important information about a training program
+                before deciding whether it fits your learning goals.
+            </p>
+
+        </div>
+
+
+        <div class="row g-4">
+
+
+            <!-- Feature 1 -->
+
+            <div class="col-lg-4">
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+                        01
+                    </div>
+
+                    <h4>
+                        Course Information
+                    </h4>
+
+                    <p>
+                        Review the curriculum, skills, duration and other
+                        available details about the training program.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- Feature 2 -->
+
+            <div class="col-lg-4">
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+                        02
+                    </div>
+
+                    <h4>
+                        Training Provider
+                    </h4>
+
+                    <p>
+                        Check the available information about the
+                        organization or institute providing the training.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- Feature 3 -->
+
+            <div class="col-lg-4">
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+                        03
+                    </div>
+
+                    <h4>
+                        Verification Details
+                    </h4>
+
+                    <p>
+                        Review available evidence, verification notes and
+                        information that may require further checking.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= CTA ================= -->
+
+<section class="cta-section">
+
+    <div class="container">
+
+        <div class="cta-box text-center">
+
+            <h2>
+                Learn more. Decide with information.
+            </h2>
+
+            <p>
+                Explore training programs on OfferCheck and review the
+                information available before choosing a learning opportunity.
+            </p>
+
+            <a
+                href="{% url 'register' %}"
+                class="btn btn-primary px-4 py-2"
+            >
+                Create Free Account
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}
