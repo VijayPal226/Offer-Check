@@ -312,7 +312,7 @@
                     </h2>
 
                     <p class="text-secondary mb-0 small">
-                        Opportunities
+                        Internships
                     </p>
 
                 </div>
@@ -338,7 +338,7 @@
                     </h2>
 
                     <p class="text-secondary mb-0 small">
-                        Research Platform
+                        Verification Tool
                     </p>
 
                 </div>
@@ -383,7 +383,7 @@
         <div class="row g-4">
 
             <!-- Companies -->
-            <div class="col-lg-4">
+            <div class="col-lg-3">
 
                 <div class="card border-0 shadow-sm rounded-4
                             h-100 overflow-hidden">
@@ -416,7 +416,7 @@
                             opportunity.
                         </p>
 
-                        <a href="#"
+                        <a href="{% url 'companies' %}"
                            class="text-primary fw-semibold
                                   text-decoration-none">
 
@@ -432,7 +432,7 @@
 
 
             <!-- Internships -->
-            <div class="col-lg-4">
+            <div class="col-lg-3">
 
                 <div class="card border-0 shadow-sm rounded-4
                             h-100 overflow-hidden">
@@ -464,7 +464,7 @@
                             research their available details.
                         </p>
 
-                        <a href="#"
+                        <a href="{% url 'internships' %}"
                            class="text-primary fw-semibold
                                   text-decoration-none">
 
@@ -479,8 +479,56 @@
             </div>
 
 
+            <!-- Check Internship -->
+            <div class="col-lg-3">
+
+                <div class="card border-0 shadow-sm rounded-4
+                            h-100 overflow-hidden">
+
+                    <div class="card-body p-4 p-lg-5">
+
+                        <div class="d-flex justify-content-between
+                                    align-items-start mb-4">
+
+                            <div class="bg-primary-subtle
+                                        text-primary rounded-4 p-3 fs-3">
+
+                                🔍
+
+                            </div>
+
+                            <span class="text-secondary">
+                                →
+                            </span>
+
+                        </div>
+
+                        <h4 class="fw-bold">
+                            Check Internship
+                        </h4>
+
+                        <p class="text-secondary">
+                            Verify internship legitimacy using our
+                            comprehensive checklist and avoid scams.
+                        </p>
+
+                        <a href="{% url 'check_internship' %}"
+                           class="text-primary fw-semibold
+                                  text-decoration-none">
+
+                            Verify Now →
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
             <!-- Training -->
-            <div class="col-lg-4">
+            <div class="col-lg-3">
 
                 <div class="card border-0 shadow-sm rounded-4
                             h-100 overflow-hidden">
@@ -513,7 +561,7 @@
                             a program.
                         </p>
 
-                        <a href="#"
+                        <a href="{% url 'training' %}"
                            class="text-primary fw-semibold
                                   text-decoration-none">
 

@@ -29,7 +29,7 @@ def register(request):
         username = request.POST.get("username")
         email = request.POST.get("email")
         password = request.POST.get("password")
-        passwordconfirm = request.POST.get("passwordconfirm")
+        passwordconfirm = request.POST.get("confirm_password")
         
         if password != passwordconfirm:
             messages.warning(request, "Passwords do not match")
@@ -43,3 +43,6 @@ def register(request):
         messages.success(request, "User created successfully")
         
     return render(request, "register.html")
+
+def check_internship(request):
+    return render(request, "check_internship.html")

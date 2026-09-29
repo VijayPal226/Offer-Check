@@ -1,0 +1,439 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Check Internship — OfferCheck{% endblock %}
+
+
+<link rel="stylesheet" href="{% static 'css/check-internship.css' %}">
+
+
+{% block content %}
+
+<section class="py-5">
+    <div class="container py-4">
+
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+
+                <!-- Header -->
+                <div class="text-center mb-5">
+                    <span class="badge rounded-pill bg-primary-subtle text-primary px-3 py-2 mb-3">
+                        🔍 Internship Verification
+                    </span>
+                    <h1 class="fw-bold display-5">
+                        Check if an internship is legitimate
+                    </h1>
+                    <p class="text-secondary lead mx-auto" style="max-width: 700px;">
+                        Use this checklist to verify internship opportunities before applying. Research the company, understand the role, and identify potential red flags.
+                    </p>
+                </div>
+
+                <!-- MCA Search Box -->
+                <div class="mca-search-box">
+                    <div class="row align-items-center">
+                        <div class="col-lg-8">
+                            <h4 class="fw-bold mb-2">🏢 Step 1: Check Company Registration</h4>
+                            <p class="text-secondary mb-3">
+                                Start by verifying if the company is registered with the Ministry of Corporate Affairs (MCA).
+                            </p>
+                            <div class="d-flex gap-2 flex-wrap">
+                                <input 
+                                    type="text" 
+                                    id="companyName" 
+                                    class="form-control form-control-lg rounded-3 company-input"
+                                    placeholder="Enter company name..."
+                                >
+                                <button 
+                                    onclick="searchMCA()" 
+                                    class="btn btn-primary btn-lg rounded-3 fw-semibold">
+                                    Search MCA
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 text-center mt-3 mt-lg-0">
+                            <a href="https://www.mca.gov.in" target="_blank" class="mca-link">
+                                <span>🌐</span>
+                                Visit MCA Website
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Score Display -->
+                <div class="score-display mb-4">
+                    <div class="score-number" id="scoreValue">0</div>
+                    <div class="score-label">Verification Score</div>
+                    <div class="progress-bar-custom">
+                        <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                    </div>
+                    <small class="d-block mt-2 opacity-75" id="scoreMessage">Answer questions to calculate score</small>
+                </div>
+
+                <!-- Company Identity Section -->
+                <div class="check-section">
+                    <div class="section-header">
+                        <div class="section-icon">🏢</div>
+                        <div>
+                            <h3 class="fw-bold mb-0">Company Identity</h3>
+                            <small class="text-secondary">Verify the company's legitimacy</small>
+                        </div>
+                    </div>
+
+                    <div class="question-item">
+                        <label class="form-label fw-semibold mb-2">
+                            Does the company have a professional website (not just Gmail/WhatsApp)?
+                        </label>
+                        <div class="d-flex gap-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="q1" id="q1yes" value="yes" onchange="calculateScore()">
+                                <label class="form-check-label" for="q1yes">Yes</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="q1" id="q1no" value="no" onchange="calculateScore()">
+                                <label class="form-check-label" for="q1no">No</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question-item">
+                        <label class="form-label fw-semibold mb-2">
+                            Is the company registered with MCA or another authority?
+                        </label>
+                        <div class="d-flex gap-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="q2" id="q2yes" value="yes" onchange="calculateScore()">
+                                <label class="form-check-label" for="q2yes">Yes</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="q2" id="q2no" value="no" onchange="calculateScore()">
+                                <label class="form-check-label" for="q2no">No</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question-item">
+                        <label class="form-label fw-semibold mb-2">
+                            Can you find the company on LinkedIn with employees listed?
+                        </label>
+                        <div class="d-flex gap-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="q3" id="q3yes" value="yes" onchange="calculateScore()">
+                                <label class="form-check-label" for="q3yes">Yes</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="q3" id="q3no" value="no" onchange="calculateScore()">
+                                <label class="form-check-label" for="q3no">No</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question-item">
+                        <label class="form-label fw-semibold mb-2">
+                            Did they share a proper office address or registration details?
+                        </label>
+                        <div class="d-flex gap-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="q4" id="q4yes" value="yes" onchange="calculateScore()">
+                                <label class="form-check-label" for="q4yes">Yes</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="q4" id="q4no" value="no" onchange="calculateScore()">
+                                <label class="form-check-label" for="q4no">No</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question-item">
+                        <label class="form-label fw-semibold mb-2">
+                            Do they provide a company email ID (like @company.com) instead of free email?
+                        </label>
+                        <div class="d-flex gap-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="q5" id="q5yes" value="yes" onchange="calculateScore()">
+                                <label class="form-check-label" for="q5yes">Yes</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="q5" id="q5no" value="no" onchange="calculateScore()">
+                                <label class="form-check-label" for="q5no">No</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Internship Details Section -->
+                <div class="check-section">
+                    <div class="section-header">
+                        <div class="section-icon">💼</div>
+                        <div>
+                            <h3 class="fw-bold mb-0">Internship Details</h3>
+                            <small class="text-secondary">Understand the role and responsibilities</small>
+                        </div>
+                    </div>
+
+                    <div class="question-item">
+                        <label class="form-label fw-semibold mb-2">
+                            Did they clearly explain your role and responsibilities?
+                        </label>
+                        <div class="d-flex gap-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="q6" id="q6yes" value="yes" onchange="calculateScore()">
+                                <label class="form-check-label" for="q6yes">Yes</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="q6" id="q6no" value="no" onchange="calculateScore()">
+                                <label class="form-check-label" for="q6no">No</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question-item">
+                        <label class="form-label fw-semibold mb-2">
+                            Did they provide a supervisor/mentor name and background?
+                        </label>
+                        <div class="d-flex gap-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="q7" id="q7yes" value="yes" onchange="calculateScore()">
+                                <label class="form-check-label" for="q7yes">Yes</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="q7" id="q7no" value="no" onchange="calculateScore()">
+                                <label class="form-check-label" for="q7no">No</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question-item">
+                        <label class="form-label fw-semibold mb-2">
+                            Is there a structured project or training plan?
+                        </label>
+                        <div class="d-flex gap-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="q8" id="q8yes" value="yes" onchange="calculateScore()">
+                                <label class="form-check-label" for="q8yes">Yes</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="q8" id="q8no" value="no" onchange="calculateScore()">
+                                <label class="form-check-label" for="q8no">No</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Payment & Certification Section -->
+                <div class="check-section">
+                    <div class="section-header">
+                        <div class="section-icon">💰</div>
+                        <div>
+                            <h3 class="fw-bold mb-0">Payment & Certification</h3>
+                            <small class="text-secondary">Financial and certification details</small>
+                        </div>
+                    </div>
+
+                    <div class="question-item danger">
+                        <label class="form-label fw-semibold mb-2">
+                            ⚠️ Are they asking you to pay money to join? (Major Red Flag)
+                        </label>
+                        <div class="d-flex gap-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="q9" id="q9yes" value="yes" onchange="calculateScore()">
+                                <label class="form-check-label" for="q9yes">Yes (Red Flag)</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="q9" id="q9no" value="no" onchange="calculateScore()">
+                                <label class="form-check-label" for="q9no">No</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question-item">
+                        <label class="form-label fw-semibold mb-2">
+                            Do they provide a verifiable certificate (with seal, signature, or QR code)?
+                        </label>
+                        <div class="d-flex gap-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="q10" id="q10yes" value="yes" onchange="calculateScore()">
+                                <label class="form-check-label" for="q10yes">Yes</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="q10" id="q10no" value="no" onchange="calculateScore()">
+                                <label class="form-check-label" for="q10no">No</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question-item">
+                        <label class="form-label fw-semibold mb-2">
+                            Is stipend/payment clearly mentioned?
+                        </label>
+                        <div class="d-flex gap-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="q11" id="q11yes" value="yes" onchange="calculateScore()">
+                                <label class="form-check-label" for="q11yes">Yes</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="q11" id="q11no" value="no" onchange="calculateScore()">
+                                <label class="form-check-label" for="q11no">No</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Communication & Transparency Section -->
+                <div class="check-section">
+                    <div class="section-header">
+                        <div class="section-icon">📞</div>
+                        <div>
+                            <h3 class="fw-bold mb-0">Communication & Transparency</h3>
+                            <small class="text-secondary">Professional communication standards</small>
+                        </div>
+                    </div>
+
+                    <div class="question-item">
+                        <label class="form-label fw-semibold mb-2">
+                            Do they use official communication channels (company email, Teams, Slack)?
+                        </label>
+                        <div class="d-flex gap-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="q12" id="q12yes" value="yes" onchange="calculateScore()">
+                                <label class="form-check-label" for="q12yes">Yes</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="q12" id="q12no" value="no" onchange="calculateScore()">
+                                <label class="form-check-label" for="q12no">No</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question-item">
+                        <label class="form-label fw-semibold mb-2">
+                            Are they willing to connect you with past interns?
+                        </label>
+                        <div class="d-flex gap-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="q13" id="q13yes" value="yes" onchange="calculateScore()">
+                                <label class="form-check-label" for="q13yes">Yes</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="q13" id="q13no" value="no" onchange="calculateScore()">
+                                <label class="form-check-label" for="q13no">No</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question-item">
+                        <label class="form-label fw-semibold mb-2">
+                            Do they conduct interviews or onboarding sessions?
+                        </label>
+                        <div class="d-flex gap-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="q14" id="q14yes" value="yes" onchange="calculateScore()">
+                                <label class="form-check-label" for="q14yes">Yes</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="q14" id="q14no" value="no" onchange="calculateScore()">
+                                <label class="form-check-label" for="q14no">No</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Red Flags Section -->
+                <div class="check-section" style="border-left: 4px solid #ef4444;">
+                    <div class="section-header">
+                        <div class="section-icon" style="background: #ef4444;">🚩</div>
+                        <div>
+                            <h3 class="fw-bold mb-0">Red Flags</h3>
+                            <small class="text-secondary">Watch out for these warning signs</small>
+                        </div>
+                    </div>
+
+                    <div class="red-flag">
+                        <span class="red-flag-icon">⚠️</span>
+                        <span>They refuse to share CIN or registration details</span>
+                    </div>
+
+                    <div class="red-flag">
+                        <span class="red-flag-icon">⚠️</span>
+                        <span>They only operate through WhatsApp/Telegram</span>
+                    </div>
+
+                    <div class="red-flag">
+                        <span class="red-flag-icon">⚠️</span>
+                        <span>They ask for money upfront without showing legal documents</span>
+                    </div>
+
+                    <div class="alert alert-warning mt-3 mb-0">
+                        <strong>⚠️ Important:</strong> If you notice multiple red flags, it's best to avoid the opportunity. Legitimate companies are transparent about their operations.
+                    </div>
+                </div>
+
+                <!-- Additional Resources -->
+                <div class="check-section">
+                    <div class="section-header">
+                        <div class="section-icon" style="background: #10b981;">📚</div>
+                        <div>
+                            <h3 class="fw-bold mb-0">Additional Verification Resources</h3>
+                            <small class="text-secondary">Cross-check from multiple sources</small>
+                        </div>
+                    </div>
+
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center gap-3 p-3 bg-light rounded-3">
+                                <div class="fs-3">🔗</div>
+                                <div>
+                                    <strong>LinkedIn</strong>
+                                    <p class="text-secondary small mb-0">Search company and verify employees</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center gap-3 p-3 bg-light rounded-3">
+                                <div class="fs-3">🧾</div>
+                                <div>
+                                    <strong>GSTIN Verification</strong>
+                                    <p class="text-secondary small mb-0">Check GST number on GST portal</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center gap-3 p-3 bg-light rounded-3">
+                                <div class="fs-3">🌐</div>
+                                <div>
+                                    <strong>Domain Check</strong>
+                                    <p class="text-secondary small mb-0">Verify @company.com email domain</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center gap-3 p-3 bg-light rounded-3">
+                                <div class="fs-3">📍</div>
+                                <div>
+                                    <strong>Google Maps</strong>
+                                    <p class="text-secondary small mb-0">Verify office address location</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="d-flex gap-3 justify-content-center flex-wrap">
+                    <button onclick="resetForm()" class="btn btn-outline-dark btn-lg rounded-3 fw-semibold">
+                        Reset Form
+                    </button>
+                    <a href="{% url 'home' %}" class="btn btn-primary btn-lg rounded-3 fw-semibold">
+                        Back to Home
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/check-internship.js' %}"></script>
+{% endblock %}
