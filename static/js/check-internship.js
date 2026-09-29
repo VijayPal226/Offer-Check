@@ -1,3 +1,4 @@
+// Function to search MCA website,and check you write company name or not
 function searchMCA() {
     const companyName = document.getElementById('companyName').value;
     if (companyName) {
@@ -7,7 +8,7 @@ function searchMCA() {
         alert('Please enter a company name first');
     }
 }
-
+//function for  put value variable which used for find score
 function calculateScore() {
     const questions = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9', 'q10', 'q11', 'q12', 'q13', 'q14'];
     let score = 0;
@@ -38,7 +39,7 @@ function calculateScore() {
     // Update message
     const messageEl = document.getElementById('scoreMessage');
     if (redFlags > 0) {
-        messageEl.textContent = `⚠️ ${redFlags} red flag(s) detected - Be cautious!`;
+        messageEl.textContent = `⚠️ ${redFlags} red flag(s) detected - Be cautious there is finicial loss check it carefully \ncheck this internship link with any respect instutute,univertity,company!`;
         messageEl.style.color = '#ef4444';
     } else if (percentage >= 80) {
         messageEl.textContent = '✅ Good - Opportunity appears legitimate';
