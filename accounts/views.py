@@ -44,5 +44,4 @@ def register(request):
         
     return render(request, "register.html")
 
-def check_internship(request):
-    return render(request, "check_internship.html")
+
