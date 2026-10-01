@@ -68,6 +68,32 @@
         font-weight: 600;
     }
 
+    .check-training-btn {
+        background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+        color: #ffffff;
+        border: none;
+        padding: 14px 32px;
+        border-radius: 12px;
+        font-weight: 600;
+        font-size: 16px;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .check-training-btn:hover {
+        background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+    }
+
+    .check-training-btn:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 10px rgba(37, 99, 235, 0.3);
+    }
+
     .section-padding {
         padding: 75px 0;
     }
@@ -279,6 +305,13 @@
             Explore training programs, courses and learning opportunities
             while reviewing the information available about each program.
         </p>
+
+        <div class="mt-4">
+            <a href="{% url 'training_check' %}" class="check-training-btn">
+                <span>🔍</span>
+                Check Training Program
+            </a>
+        </div>
 
 
         <!-- Search -->

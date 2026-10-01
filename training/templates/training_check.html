@@ -1,0 +1,683 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Training Check — OfferCheck{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/check-internship.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="py-5">
+    <div class="container py-4">
+
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+
+                <!-- Header -->
+                <div class="text-center mb-5">
+                    <span class="badge rounded-pill bg-primary-subtle text-primary px-3 py-2 mb-3">
+                        🎓 Training Verification
+                    </span>
+                    <h1 class="fw-bold display-5">
+                        Check if a training program is legitimate
+                    </h1>
+                    <p class="text-secondary lead mx-auto" style="max-width: 700px;">
+                        Use this checklist to verify training programs before enrolling. Research the provider, understand the curriculum, and identify potential red flags.
+                    </p>
+                </div>
+
+                <!-- MCA Search Box -->
+                <div class="mca-search-box">
+                    <div class="row align-items-center">
+                        <div class="col-lg-8">
+                            <h4 class="fw-bold mb-2">🏢 Step 1: Check Provider Registration</h4>
+                            <p class="text-secondary mb-3">
+                                Start by verifying if the training provider is registered with the Ministry of Corporate Affairs (MCA).
+                            </p>
+                            <div class="d-flex gap-2 flex-wrap">
+                                <input 
+                                    type="text" 
+                                    id="trainingCompanyName" 
+                                    class="form-control form-control-lg rounded-3 company-input"
+                                    placeholder="Enter training provider name..."
+                                >
+                                <button 
+                                    onclick="searchTrainingMCA()" 
+                                    class="btn btn-primary btn-lg rounded-3 fw-semibold">
+                                    Search MCA
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 text-center mt-3 mt-lg-0">
+                            <a href="https://www.mca.gov.in" target="_blank" class="mca-link">
+                                <span>🌐</span>
+                                Visit MCA Website
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Score Display -->
+                <div class="score-display mb-4">
+                    <div class="score-number" id="trainingScoreValue">0</div>
+                    <div class="score-label">Verification Score</div>
+                    <div class="progress-bar-custom">
+                        <div class="progress-fill" id="trainingProgressFill" style="width: 0%"></div>
+                    </div>
+                    <div class="d-block mt-2" id="trainingScoreMessage" style="color: #ffffff; font-weight: 500; font-size: 1rem; text-shadow: 0 1px 2px rgba(0,0,0,0.2);">Answer questions to calculate score</div>
+                </div>
+
+                <!-- Provider Identity Section -->
+                <div class="check-section">
+                    <div class="section-header">
+                        <div class="section-icon">🏢</div>
+                        <div>
+                            <h3 class="fw-bold mb-0">Training Provider Identity</h3>
+                            <small class="text-secondary">Verify the provider's legitimacy</small>
+                        </div>
+                    </div>
+
+                    <div class="question-item">
+                        <label class="form-label fw-semibold mb-2">
+                            Does the training provider have a professional website (not just Gmail/WhatsApp)?
+                        </label>
+                        <div class="d-flex gap-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="tq1" id="tq1yes" value="yes" onchange="calculateTrainingScore()">
+                                <label class="form-check-label" for="tq1yes">Yes</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="tq1" id="tq1no" value="no" onchange="calculateTrainingScore()">
+                                <label class="form-check-label" for="tq1no">No</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question-item">
+                        <label class="form-label fw-semibold mb-2">
+                            Is the training provider registered with MCA or another authority?
+                        </label>
+                        <div class="d-flex gap-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="tq2" id="tq2yes" value="yes" onchange="calculateTrainingScore()">
+                                <label class="form-check-label" for="tq2yes">Yes</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="tq2" id="tq2no" value="no" onchange="calculateTrainingScore()">
+                                <label class="form-check-label" for="tq2no">No</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question-item">
+                        <label class="form-label fw-semibold mb-2">
+                            Can you find the provider on LinkedIn with trainers/employees listed?
+                        </label>
+                        <div class="d-flex gap-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="tq3" id="tq3yes" value="yes" onchange="calculateTrainingScore()">
+                                <label class="form-check-label" for="tq3yes">Yes</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="tq3" id="tq3no" value="no" onchange="calculateTrainingScore()">
+                                <label class="form-check-label" for="tq3no">No</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question-item">
+                        <label class="form-label fw-semibold mb-2">
+                            Did they share a proper office address or registration details?
+                        </label>
+                        <div class="d-flex gap-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="tq4" id="tq4yes" value="yes" onchange="calculateTrainingScore()">
+                                <label class="form-check-label" for="tq4yes">Yes</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="tq4" id="tq4no" value="no" onchange="calculateTrainingScore()">
+                                <label class="form-check-label" for="tq4no">No</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question-item">
+                        <label class="form-label fw-semibold mb-2">
+                            Do they provide a company email ID (like @company.com) instead of free email?
+                        </label>
+                        <div class="d-flex gap-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="tq5" id="tq5yes" value="yes" onchange="calculateTrainingScore()">
+                                <label class="form-check-label" for="tq5yes">Yes</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="tq5" id="tq5no" value="no" onchange="calculateTrainingScore()">
+                                <label class="form-check-label" for="tq5no">No</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Training Details Section -->
+                <div class="check-section">
+                    <div class="section-header">
+                        <div class="section-icon">📚</div>
+                        <div>
+                            <h3 class="fw-bold mb-0">Training Details</h3>
+                            <small class="text-secondary">Understand the curriculum and structure</small>
+                        </div>
+                    </div>
+
+                    <div class="question-item">
+                        <label class="form-label fw-semibold mb-2">
+                            Did they clearly explain the training curriculum and modules?
+                        </label>
+                        <div class="d-flex gap-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="tq6" id="tq6yes" value="yes" onchange="calculateTrainingScore()">
+                                <label class="form-check-label" for="tq6yes">Yes</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="tq6" id="tq6no" value="no" onchange="calculateTrainingScore()">
+                                <label class="form-check-label" for="tq6no">No</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question-item">
+                        <label class="form-label fw-semibold mb-2">
+                            Did they provide trainer/instructor details and their background?
+                        </label>
+                        <div class="d-flex gap-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="tq7" id="tq7yes" value="yes" onchange="calculateTrainingScore()">
+                                <label class="form-check-label" for="tq7yes">Yes</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="tq7" id="tq7no" value="no" onchange="calculateTrainingScore()">
+                                <label class="form-check-label" for="tq7no">No</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question-item">
+                        <label class="form-label fw-semibold mb-2">
+                            Is there a structured training schedule/timeline provided?
+                        </label>
+                        <div class="d-flex gap-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="tq8" id="tq8yes" value="yes" onchange="calculateTrainingScore()">
+                                <label class="form-check-label" for="tq8yes">Yes</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="tq8" id="tq8no" value="no" onchange="calculateTrainingScore()">
+                                <label class="form-check-label" for="tq8no">No</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question-item">
+                        <label class="form-label fw-semibold mb-2">
+                            Is the training conducted online, offline, or hybrid (clearly specified)?
+                        </label>
+                        <div class="d-flex gap-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="tq9" id="tq9yes" value="yes" onchange="calculateTrainingScore()">
+                                <label class="form-check-label" for="tq9yes">Yes</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="tq9" id="tq9no" value="no" onchange="calculateTrainingScore()">
+                                <label class="form-check-label" for="tq9no">No</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Payment & Certification Section -->
+                <div class="check-section">
+                    <div class="section-header">
+                        <div class="section-icon">💰</div>
+                        <div>
+                            <h3 class="fw-bold mb-0">Payment & Certification</h3>
+                            <small class="text-secondary">Financial and certification details</small>
+                        </div>
+                    </div>
+
+                    <div class="question-item danger">
+                        <label class="form-label fw-semibold mb-2">
+                            ⚠️ Are they asking you to pay money before providing details? (Major Red Flag)
+                        </label>
+                        <div class="d-flex gap-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="tq10" id="tq10yes" value="yes" onchange="calculateTrainingScore()">
+                                <label class="form-check-label" for="tq10yes">Yes (Red Flag)</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="tq10" id="tq10no" value="no" onchange="calculateTrainingScore()">
+                                <label class="form-check-label" for="tq10no">No</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question-item">
+                        <label class="form-label fw-semibold mb-2">
+                            Do they provide a verifiable certificate (with seal, signature, or QR code)?
+                        </label>
+                        <div class="d-flex gap-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="tq11" id="tq11yes" value="yes" onchange="calculateTrainingScore()">
+                                <label class="form-check-label" for="tq11yes">Yes</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="tq11" id="tq11no" value="no" onchange="calculateTrainingScore()">
+                                <label class="form-check-label" for="tq11no">No</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question-item">
+                        <label class="form-label fw-semibold mb-2">
+                            Is the training fee clearly mentioned with no hidden charges?
+                        </label>
+                        <div class="d-flex gap-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="tq12" id="tq12yes" value="yes" onchange="calculateTrainingScore()">
+                                <label class="form-check-label" for="tq12yes">Yes</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="tq12" id="tq12no" value="no" onchange="calculateTrainingScore()">
+                                <label class="form-check-label" for="tq12no">No</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question-item">
+                        <label class="form-label fw-semibold mb-2">
+                            Do they offer job placement assistance or internship opportunities?
+                        </label>
+                        <div class="d-flex gap-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="tq13" id="tq13yes" value="yes" onchange="calculateTrainingScore()">
+                                <label class="form-check-label" for="tq13yes">Yes</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="tq13" id="tq13no" value="no" onchange="calculateTrainingScore()">
+                                <label class="form-check-label" for="tq13no">No</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Real Project & Offer Letter Section -->
+                <div class="check-section">
+                    <div class="section-header">
+                        <div class="section-icon">📋</div>
+                        <div>
+                            <h3 class="fw-bold mb-0">Real Project & Offer Letter</h3>
+                            <small class="text-secondary">Practical experience and documentation</small>
+                        </div>
+                    </div>
+
+                    <div class="question-item">
+                        <label class="form-label fw-semibold mb-2">
+                            Does the training include real-world projects or hands-on experience?
+                        </label>
+                        <div class="d-flex gap-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="tq14" id="tq14yes" value="yes" onchange="calculateTrainingScore()">
+                                <label class="form-check-label" for="tq14yes">Yes</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="tq14" id="tq14no" value="no" onchange="calculateTrainingScore()">
+                                <label class="form-check-label" for="tq14no">No</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question-item">
+                        <label class="form-label fw-semibold mb-2">
+                            Do they provide a formal offer letter or training agreement?
+                        </label>
+                        <div class="d-flex gap-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="tq15" id="tq15yes" value="yes" onchange="calculateTrainingScore()">
+                                <label class="form-check-label" for="tq15yes">Yes</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="tq15" id="tq15no" value="no" onchange="calculateTrainingScore()">
+                                <label class="form-check-label" for="tq15no">No</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question-item">
+                        <label class="form-label fw-semibold mb-2">
+                            Are the projects/portfolio work shareable for future job applications?
+                        </label>
+                        <div class="d-flex gap-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="tq16" id="tq16yes" value="yes" onchange="calculateTrainingScore()">
+                                <label class="form-check-label" for="tq16yes">Yes</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="tq16" id="tq16no" value="no" onchange="calculateTrainingScore()">
+                                <label class="form-check-label" for="tq16no">No</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Communication & Transparency Section -->
+                <div class="check-section">
+                    <div class="section-header">
+                        <div class="section-icon">📞</div>
+                        <div>
+                            <h3 class="fw-bold mb-0">Communication & Transparency</h3>
+                            <small class="text-secondary">Professional communication standards</small>
+                        </div>
+                    </div>
+
+                    <div class="question-item">
+                        <label class="form-label fw-semibold mb-2">
+                            Do they use official communication channels (company email, Teams, Zoom)?
+                        </label>
+                        <div class="d-flex gap-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="tq17" id="tq17yes" value="yes" onchange="calculateTrainingScore()">
+                                <label class="form-check-label" for="tq17yes">Yes</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="tq17" id="tq17no" value="no" onchange="calculateTrainingScore()">
+                                <label class="form-check-label" for="tq17no">No</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question-item">
+                        <label class="form-label fw-semibold mb-2">
+                            Are they willing to connect you with past trainees/alumni?
+                        </label>
+                        <div class="d-flex gap-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="tq18" id="tq18yes" value="yes" onchange="calculateTrainingScore()">
+                                <label class="form-check-label" for="tq18yes">Yes</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="tq18" id="tq18no" value="no" onchange="calculateTrainingScore()">
+                                <label class="form-check-label" for="tq18no">No</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question-item">
+                        <label class="form-label fw-semibold mb-2">
+                            Do they conduct a counseling session or demo before enrollment?
+                        </label>
+                        <div class="d-flex gap-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="tq19" id="tq19yes" value="yes" onchange="calculateTrainingScore()">
+                                <label class="form-check-label" for="tq19yes">Yes</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="tq19" id="tq19no" value="no" onchange="calculateTrainingScore()">
+                                <label class="form-check-label" for="tq19no">No</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Red Flags Section -->
+                <div class="check-section" style="border-left: 4px solid #ef4444;">
+                    <div class="section-header">
+                        <div class="section-icon" style="background: #ef4444;">🚩</div>
+                        <div>
+                            <h3 class="fw-bold mb-0">Red Flags</h3>
+                            <small class="text-secondary">Watch out for these warning signs</small>
+                        </div>
+                    </div>
+
+                    <div class="red-flag">
+                        <span class="red-flag-icon">⚠️</span>
+                        <span>They refuse to share CIN or registration details</span>
+                    </div>
+
+                    <div class="red-flag">
+                        <span class="red-flag-icon">⚠️</span>
+                        <span>They only operate through WhatsApp/Telegram</span>
+                    </div>
+
+                    <div class="red-flag">
+                        <span class="red-flag-icon">⚠️</span>
+                        <span>They ask for money upfront without showing legal documents</span>
+                    </div>
+
+                    <div class="red-flag">
+                        <span class="red-flag-icon">⚠️</span>
+                        <span>They guarantee 100% job placement without proper process</span>
+                    </div>
+
+                    <div class="red-flag">
+                        <span class="red-flag-icon">⚠️</span>
+                        <span>They don't provide detailed curriculum or trainer information</span>
+                    </div>
+
+                    <div class="alert alert-warning mt-3 mb-0">
+                        <strong>⚠️ Important:</strong> If you notice multiple red flags, it's best to avoid the training program. Legitimate providers are transparent about their operations and curriculum.
+                    </div>
+                </div>
+
+                <!-- Additional Resources -->
+                <div class="check-section">
+                    <div class="section-header">
+                        <div class="section-icon" style="background: #10b981;">📚</div>
+                        <div>
+                            <h3 class="fw-bold mb-0">Additional Verification Resources</h3>
+                            <small class="text-secondary">Cross-check from multiple sources</small>
+                        </div>
+                    </div>
+
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center gap-3 p-3 bg-light rounded-3">
+                                <div class="fs-3">🔗</div>
+                                <div>
+                                    <strong>LinkedIn</strong>
+                                    <p class="text-secondary small mb-0">Search provider and verify trainers</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center gap-3 p-3 bg-light rounded-3">
+                                <div class="fs-3">⭐</div>
+                                <div>
+                                    <strong>Google Reviews</strong>
+                                    <p class="text-secondary small mb-0">Check reviews and ratings</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center gap-3 p-3 bg-light rounded-3">
+                                <div class="fs-3">🌐</div>
+                                <div>
+                                    <strong>Domain Check</strong>
+                                    <p class="text-secondary small mb-0">Verify @company.com email domain</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center gap-3 p-3 bg-light rounded-3">
+                                <div class="fs-3">📍</div>
+                                <div>
+                                    <strong>Google Maps</strong>
+                                    <p class="text-secondary small mb-0">Verify office address location</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="d-flex gap-3 justify-content-center flex-wrap">
+                    <button onclick="resetTrainingForm()" class="btn btn-outline-dark btn-lg rounded-3 fw-semibold">
+                        Reset Form
+                    </button>
+                    <a href="{% url 'home' %}" class="btn btn-primary btn-lg rounded-3 fw-semibold">
+                        Back to Home
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/check-internship.js' %}"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Training check page loaded');
+    
+    // Function to search MCA website for training provider
+    window.searchTrainingMCA = function() {
+        const companyName = document.getElementById('trainingCompanyName').value;
+        if (companyName) {
+            const mcaUrl = 'https://www.mca.gov.in/content/mca/global/en/data.html';
+            window.open(mcaUrl, '_blank');
+        } else {
+            alert('Please enter a training provider name first');
+        }
+    };
+
+    // Function to calculate training verification score
+    window.calculateTrainingScore = function() {
+        const questions = [
+            'tq1', 'tq2', 'tq3', 'tq4', 'tq5', 'tq6', 'tq7',
+            'tq8', 'tq9', 'tq10', 'tq11', 'tq12', 'tq13', 'tq14',
+            'tq15', 'tq16', 'tq17', 'tq18', 'tq19'
+        ];
+
+        let score = 0;
+        let answered = 0;
+        let redFlags = 0;
+
+        questions.forEach(q => {
+            const selected = document.querySelector(
+                `input[name="${q}"]:checked`
+            );
+
+            if (selected) {
+                answered++;
+
+                if (selected.value === 'yes') {
+
+                    // tq10 is a major red flag (payment before details)
+                    if (q === 'tq10') {
+                        redFlags++;
+                    } else {
+                        score++;
+                    }
+                }
+            }
+        });
+
+        // If no question is answered
+        if (answered === 0) {
+            document.getElementById('trainingScoreValue').textContent = '0';
+            document.getElementById('trainingProgressFill').style.width = '0%';
+
+            const messageEl = document.getElementById('trainingScoreMessage');
+
+            messageEl.textContent =
+                'Please answer the questions first.';
+
+            messageEl.style.color = '#ffffff';
+            messageEl.style.fontWeight = '500';
+            messageEl.style.textShadow = '0 1px 2px rgba(0,0,0,0.2)';
+
+            return;
+        }
+
+        // Calculate percentage
+        const normalAnswers = answered - redFlags;
+
+        let percentage = 0;
+
+        if (normalAnswers > 0) {
+            percentage = Math.round(
+                (score / normalAnswers) * 100
+            );
+        }
+
+        // Keep score between 0 and 100
+        percentage = Math.min(100, Math.max(0, percentage));
+
+        // Show score
+        document.getElementById('trainingScoreValue').textContent =
+            percentage;
+
+        // Update progress bar
+        document.getElementById('trainingProgressFill').style.width =
+            percentage + '%';
+
+        // Show risk message
+        const messageEl = document.getElementById('trainingScoreMessage');
+
+        if (redFlags > 0) {
+
+            messageEl.textContent =
+                `⚠️ ${redFlags} major red flag(s) detected. Please verify this training program carefully.`;
+
+            messageEl.style.color = '#fef2f2';
+            messageEl.style.fontWeight = '600';
+            messageEl.style.textShadow = '0 1px 2px rgba(0,0,0,0.3)';
+
+        } else if (percentage >= 80) {
+
+            messageEl.textContent =
+                '🟢 Low Risk - Training program appears legitimate.';
+
+            messageEl.style.color = '#ecfdf5';
+            messageEl.style.fontWeight = '500';
+            messageEl.style.textShadow = '0 1px 2px rgba(0,0,0,0.2)';
+
+        } else if (percentage >= 60) {
+
+            messageEl.textContent =
+                '🟡 More Verification Needed - Do more research before enrolling.';
+
+            messageEl.style.color = '#fef3c7';
+            messageEl.style.fontWeight = '500';
+            messageEl.style.textShadow = '0 1px 2px rgba(0,0,0,0.2)';
+
+        } else {
+
+            messageEl.textContent =
+                '🔴 High Risk - Verify this training program carefully before proceeding.';
+
+            messageEl.style.color = '#fef2f2';
+            messageEl.style.fontWeight = '600';
+            messageEl.style.textShadow = '0 1px 2px rgba(0,0,0,0.3)';
+        }
+    };
+
+    // Function to reset training form
+    window.resetTrainingForm = function() {
+        const inputs = document.querySelectorAll('input[type="radio"]');
+        inputs.forEach(input => input.checked = false);
+        document.getElementById('trainingCompanyName').value = '';
+        document.getElementById('trainingScoreValue').textContent = '0';
+        document.getElementById('trainingProgressFill').style.width = '0%';
+        document.getElementById('trainingScoreMessage').textContent = 'Answer questions to calculate score';
+        document.getElementById('trainingScoreMessage').style.color = '#ffffff';
+        document.getElementById('trainingScoreMessage').style.fontWeight = '500';
+        document.getElementById('trainingScoreMessage').style.textShadow = '0 1px 2px rgba(0,0,0,0.2)';
+    };
+    
+    console.log('Training functions loaded');
+});
+</script>
+{% endblock %}
