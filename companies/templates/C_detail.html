@@ -3,7 +3,44 @@
 {% block title %}Company Detail{% endblock %}
 
 {% block content %}
-<div class="container">
-    <h1>Company Detail</h1>
-</div>
+<section class="py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                {% if company %}
+                    <div class="premium-card p-4">
+                        <h1 class="mb-4">Company Detail</h1>
+                        <div class="mb-4">
+                            <h2>{{ company.company_name }}</h2>
+                            <h4 class="text-muted">{{ company.type }}</h4>
+                        </div>
+                        <div class="mb-3">
+                            <strong>Work on:</strong>
+                            <p>{{ company.work_on }}</p>
+                        </div>
+                        <div class="mb-3">
+                            <strong>Program Type:</strong>
+                            <p>{{ company.program_type }}</p>
+                        </div>
+                        <div class="mb-3">
+                            <span class="text-muted">(approx.)</span> <strong>Number of Programs:</strong>
+                            <p>{{ company.number_of_programs }}</p>
+                        </div>
+                        <div class="mb-4">
+                            <a href="{{ company.link }}" target="_blank" class="btn btn-primary">
+                                Apply here
+                            </a>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="alert alert-danger">
+                        <h4>Company Not Found</h4>
+                        <p>{{ error }}</p>
+                        <a href="{% url 'companies' %}" class="btn btn-primary">Back to Companies</a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}
