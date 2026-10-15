@@ -33,7 +33,7 @@ company = [
         "link": "https://careers.wipro.com/content/Early-Careers/"
     },
     #4 HCLTech
-    {
+{
     "id": 4,
     "slug": "hcltech",
     "type": "company",
@@ -153,4 +153,71 @@ company = [
         "number_of_programs": 400,
         "link": "https://www.amazon.jobs/"
     }
+]
+
+paid_internships = [
+    #1 BAOIAM Innovations Pvt. Ltd.
+{
+  "id": 1,
+  "slug": "senior-backend-developer-intern",
+  "title": "Senior Backend Developer Intern",
+  "company": "BAOIAM Innovations Pvt. Ltd.",
+  "mode": "Remote",
+  "duration": "3 Months",
+  "stipend": "Up to ₹15,000/month",
+  "certificate": True,
+  "skills": [
+    "Python",
+    "Django",
+    "DRF",
+    "PostgreSQL",
+    "JWT",
+    "Redis",
+    "Git"
+  ],
+  "ppo": None,
+  "paid": True
+},
+#2 PranavX Labs
+ {
+    "id": 2,
+    "slug": "web-development-intern",
+  "title": "Web Development Intern",
+  "company": "PranavX Labs",
+  "mode": "Remote",
+  "duration": "3 Months",
+  "stipend": "No Stipend",
+  "certificate": True,
+  "skills": [
+    "HTML",
+    "CSS",
+    "JavaScript",
+    "Git",
+    "GitHub",
+    "React",
+    "Next.js"
+  ],
+  "ppo": False,
+  "paid": False
+},
+#3 Kidsneuron
+{
+  "id": 3,
+  "slug": "cyber-security-intern",
+  "title": "Cyber Security Intern",
+  "company": "Kidsneuron",
+  "mode": "Remote",
+  "duration": "3 Months",
+  "stipend": "₹10,000 - ₹15,000/month",
+  "certificate": True,
+  "skills": [
+    "Cybersecurity",
+    "Web Application Security",
+    "Network Security",
+    "Vulnerability Assessment",
+    "Risk Analysis"
+  ],
+  "ppo": None,
+  "paid": True
+}
 ]
